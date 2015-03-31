@@ -41,7 +41,7 @@ setup(
     keywords="sphinx autodoc grok zope",
     url="http://pypi.python.org/pypi/waeup.sphinx.autodoc",
     packages=['waeup'],
-    namespace_packages=['waeup', ],
+    namespace_packages=['waeup', 'waeup.sphinx'],
     long_description=read('README.rst'),
     classifiers=[
         "Development Status :: 3 - Alpha",
