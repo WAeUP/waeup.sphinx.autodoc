@@ -20,6 +20,12 @@ class PyTest(TestCommand):
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+install_requires = [
+    'six >= 1.4',
+    'docutils >= 0.11',
+    'sphinx >= 1.3',
+    ]
+
 tests_require = [
     'pytest >= 2.0.3',
     'pytest-xdist',
@@ -27,7 +33,6 @@ tests_require = [
     ]
 
 docs_require = [
-    'Sphinx',
     ]
 
 setup(
@@ -57,7 +62,7 @@ setup(
     ],
     include_package_data=True,
     zip_safe=False,
-    install_requires=[],
+    install_requires=install_requires,
     tests_require=tests_require,
     extras_require=dict(
         tests=tests_require,
