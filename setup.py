@@ -45,7 +45,7 @@ setup(
     license="GPL 3.0",
     keywords="sphinx autodoc grok zope",
     url="http://pypi.python.org/pypi/waeup.sphinx.autodoc",
-    packages=['waeup'],
+    packages=['waeup.sphinx'],
     namespace_packages=['waeup', ],
     long_description=read('README.rst'),
     classifiers=[
