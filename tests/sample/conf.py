@@ -6,8 +6,7 @@ sys.path.append(os.path.abspath('.'))
 extensions = ['sphinx.ext.autodoc', 'waeup.sphinx.autodoc']
 
 master_doc = 'contents'
-source_suffix = ['.txt', '.add', '.foo']
-source_parsers = {'.foo': 'parsermod.Parser'}
+source_suffix = ['.txt', '.rst']
 
 project = 'WAeUP Sphinx Extensions <Tests>'
 copyright = '2015, WAeUP Germany'
