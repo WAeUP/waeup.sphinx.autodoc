@@ -5,20 +5,24 @@ from setuptools.command.test import test as TestCommand
 
 tests_path = os.path.join(os.path.dirname(__file__), 'tests')
 
+
 class PyTest(TestCommand):
     def finalize_options(self):
         TestCommand.finalize_options(self)
         args = sys.argv[sys.argv.index('test')+1:]
         self.test_args = args
         self.test_suite = True
+
     def run_tests(self):
-        #import here, cause outside the eggs aren't loaded
+        # import here, cause outside the eggs aren't loaded
         import pytest
         errno = pytest.main(self.test_args)
         sys.exit(errno)
 
+
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
 
 install_requires = [
     'six >= 1.4',
@@ -34,6 +38,7 @@ tests_require = [
 
 docs_require = [
     ]
+
 
 setup(
     name="waeup.sphinx.autodoc",
