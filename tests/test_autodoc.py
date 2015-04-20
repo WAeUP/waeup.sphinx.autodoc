@@ -1,37 +1,43 @@
 # tests for waeup.sphinxext.autodoc
 import os
+import py.path
 import pytest
 import tempfile
 import shutil
+import sys
 from sphinx.application import Sphinx
+
+LOCAL_TEST_DIR = py.path.local(os.path.dirname(__file__) or '.')
+SAMPLE_SPHINX_SRC = LOCAL_TEST_DIR / "sample"
 
 
 class SphinxAppFactory(object):
     """A factory providing `Sphinx` apps suitable for testing.
+
+    A `Sphinx` application instance is available as `app`.
     """
     app = None
 
-    def __init__(self):
-        self.work_dir = tempfile.mkdtemp()
-        # copy local 'sample/' to temp-location
-        self.src_dir = os.path.join(self.work_dir, 'sample')
-        local_src = os.path.join(os.path.dirname(__file__), 'sample')
-        shutil.copytree(local_src, self.src_dir)
-        self.build_dir = os.path.join(self.src_dir, '_build')
+    def __init__(self, work_dir):
+        self.work_dir = work_dir
+        self.src_dir = self.work_dir / 'sample'
+        SAMPLE_SPHINX_SRC.copy(self.src_dir)
+        self.build_dir = self.src_dir.mkdir('_build')
         self.conf_dir = self.src_dir
-        self.out_dir = os.path.join(self.build_dir, 'html')
-        self.doctree_dir = os.path.join(self.build_dir, 'doctrees')
-        os.makedirs(self.out_dir)
-        os.makedirs(self.doctree_dir)
+        self.out_dir = self.build_dir.mkdir('html')
+        self.doctree_dir = self.build_dir.mkdir('doctrees')
+        self.app = Sphinx(
+            self.src_dir.strpath, self.conf_dir.strpath,
+            self.out_dir.strpath, self.doctree_dir.strpath,
+            'html', freshenv=True)
 
     def cleanup(self):
-        if os.path.exists(self.work_dir):
-            shutil.rmtree(self.work_dir)
+        return
 
 
 @pytest.fixture(scope="function")
-def sphinx_app(request):
-    factory = SphinxAppFactory()
+def sphinx_app(request, tmpdir):
+    factory = SphinxAppFactory(tmpdir)
     request.addfinalizer(factory.cleanup)
     return factory
 
