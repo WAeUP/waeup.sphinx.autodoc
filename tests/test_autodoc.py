@@ -14,6 +14,8 @@ SAMPLE_SPHINX_SRC = LOCAL_TEST_DIR / "sample"
 class SphinxAppFactory(object):
     """A factory providing `Sphinx` apps suitable for testing.
 
+    Expects a `py.path` path as temporary dir.
+
     A `Sphinx` application instance is available as `app`.
     """
     app = None
@@ -31,6 +33,11 @@ class SphinxAppFactory(object):
             self.out_dir.strpath, self.doctree_dir.strpath,
             'html', freshenv=True)
 
+    def build(self):
+        """Build the sample HTML docs.
+        """
+        return self.app.build(force_all=True)
+
     def cleanup(self):
         return
 
@@ -47,3 +54,5 @@ class TestAutodoc(object):
     def test_foo(self, sphinx_app):
         assert 1 == 1
         assert getattr(sphinx_app, 'app', 42) != 42
+        result = sphinx_app.build()
+        assert result is None
