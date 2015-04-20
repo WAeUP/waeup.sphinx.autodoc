@@ -3,9 +3,10 @@
     waeup.sphinx.autodoc
     ~~~~~~~~~~~~~~~~~~~~
 
-    Automatically insert docstrings for functions, classes or whole modules into
-    the doctree, thus avoiding duplication between docstrings and documentation
-    for those who like elaborate docstrings.
+    Automatically insert docstrings for functions, classes or whole
+    modules into the doctree, thus avoiding duplication between
+    docstrings and documentation for those who like elaborate
+    docstrings.
 
     :copyright: Copyright 2015 by Uli Fouquet, WAeUP Germany.
     :license: GPL v3+, see LICENSE for details.
