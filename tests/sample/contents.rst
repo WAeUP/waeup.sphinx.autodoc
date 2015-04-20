@@ -5,3 +5,4 @@ Sample Auto Module Docs
 =======================
 
 .. automodule:: sampleapp
+   :members:
