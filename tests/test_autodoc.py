@@ -2,9 +2,6 @@
 import os
 import py.path
 import pytest
-import tempfile
-import shutil
-import sys
 from sphinx.application import Sphinx
 
 LOCAL_TEST_DIR = py.path.local(os.path.dirname(__file__) or '.')
@@ -51,8 +48,10 @@ def sphinx_app(request, tmpdir):
 
 class TestAutodoc(object):
 
-    def test_foo(self, sphinx_app):
-        assert 1 == 1
-        assert getattr(sphinx_app, 'app', 42) != 42
-        result = sphinx_app.build()
-        assert result is None
+    def test_regular_class_is_documented(self, sphinx_app):
+        sphinx_app.build()
+        contents_html = sphinx_app.out_dir.join('contents.html')
+        assert contents_html.check()
+        with contents_html.open('r') as fd:
+            contents = fd.read()
+        assert 'SampleApp_docstring' in contents
