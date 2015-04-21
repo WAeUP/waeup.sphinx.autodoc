@@ -34,6 +34,9 @@ tests_require = [
     'pytest >= 2.0.3',
     'pytest-xdist',
     'pytest-cov',
+    'grok',
+    'zope.schema',
+    'zope.interface',
     ]
 
 docs_require = [
