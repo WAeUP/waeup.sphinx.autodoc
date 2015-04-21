@@ -61,7 +61,9 @@ setup(
         "Framework :: Sphinx :: Extension",
         "Intended Audience :: Developers",
         "Intended Audience :: Education",
-        "License :: OSI Approved :: BSD License",
+        (
+            "License :: OSI Approved :: "
+            "GNU General Public License v3 or later (GPLv3+)"),
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
