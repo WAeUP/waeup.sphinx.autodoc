@@ -19,6 +19,12 @@ class ISampleAppItem(Interface):
         )
 
 
+def sample_func(param1, keyword1=None):
+    """A sample func: sample_func_docstring
+    """
+    pass
+
+
 class SampleApp(grok.Application, grok.Container):
     """The SampleApp is here to be documented: SampleApp_docstring
     """
