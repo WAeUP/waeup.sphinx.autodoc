@@ -29,9 +29,8 @@
     :license: GPL v3+, see LICENSE for details.
 """
 import pkg_resources
-import sphinx
 from grokcore.catalog import IndexesClass
-from sphinx.ext.autodoc import ClassDocumenter, ModuleDocumenter
+from sphinx.ext.autodoc import ClassDocumenter
 
 
 __version__ = pkg_resources.get_distribution('waeup.sphinx.autodoc').version
@@ -57,8 +56,31 @@ def autodoc_skip_member(app, what, name, obj, skip, options):
     return skip
 
 
+class GrokIndexesDocumenter(ClassDocumenter):
+    """
+    Specialized Documenter subclass for grok.Indexes instances.
+    """
+    objtype = 'grokindexes'
+    member_order = ClassDocumenter.member_order + 10
+
+    @classmethod
+    def can_document_member(cls, member, membername, isattr, parent):
+        """We can document `grok.Indexes` classes.
+        """
+        return is_indexes_object(member)
+
+    def check_module(self):
+        """Check if `self.object` is really defined in the module given by
+        `self.modname`.
+
+        XXX: The base class check is not valid for grok.Indexes.
+        """
+        return True
+
+
 def setup(app):
     app.connect('autodoc-skip-member', autodoc_skip_member)
+    app.add_autodocumenter(GrokIndexesDocumenter)
     return {
         'version': __version__,
         'parallel_read_safe': True
