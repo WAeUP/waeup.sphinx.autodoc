@@ -1,8 +1,11 @@
 # tests for waeup.sphinxext.autodoc
+import grok
 import os
 import py.path
 import pytest
 from sphinx.application import Sphinx
+from waeup.sphinx.autodoc import is_indexes_object, autodoc_skip_member
+
 
 LOCAL_TEST_DIR = py.path.local(os.path.dirname(__file__) or '.')
 SAMPLE_SPHINX_SRC = LOCAL_TEST_DIR / "sample"
@@ -46,12 +49,44 @@ def sphinx_app(request, tmpdir):
     return factory
 
 
+class SampleCatalogClass(grok.Indexes):
+    pass
+
+
 class TestAutodoc(object):
 
+    def test_is_indexes_object(self):
+        # we can tell whether something is an instance of grok.Indexes
+        assert is_indexes_object(object()) is False
+        assert is_indexes_object(SampleCatalogClass) is True
+
+    def test_autodoc_skip_member(self):
+        # by default we return the passed in status
+        assert autodoc_skip_member(
+            None, 'module', 'MyObject', object(), True, {}) is True
+        assert autodoc_skip_member(
+            None, 'module', 'MyObject', object(), False, {}) is False
+
+    def test_autodoc_skip_member_allows_grok_indexes(self):
+        # we do not skip grok.Indexes
+        assert autodoc_skip_member(
+            None, 'mod', 'MyName', SampleCatalogClass, True, {}) is False
+        assert autodoc_skip_member(
+            None, 'mod', 'MyName', SampleCatalogClass, False, {}) is False
+
     def test_regular_class_is_documented(self, sphinx_app):
+        # regular classes are documented
         sphinx_app.build()
         contents_html = sphinx_app.out_dir.join('contents.html')
         assert contents_html.check()
         with contents_html.open('r') as fd:
             contents = fd.read()
         assert 'SampleApp_docstring' in contents
+
+    def test_indexes_are_documented(self, sphinx_app):
+        # grok.Indexes are documented
+        sphinx_app.build()
+        contents_html = sphinx_app.out_dir.join('contents.html')
+        with contents_html.open('r') as fd:
+            contents = fd.read()
+        assert 'SampleAppCatalog_docstring' in contents
