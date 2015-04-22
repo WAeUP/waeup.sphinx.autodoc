@@ -90,3 +90,11 @@ class TestAutodoc(object):
         with contents_html.open('r') as fd:
             contents = fd.read()
         assert 'SampleAppCatalog' in contents
+
+    def test_indexes_docstrings_are_shown(self, sphinx_app):
+        # Docstrings of grok.Indexes are shown
+        sphinx_app.build()
+        contents_html = sphinx_app.out_dir.join('contents.html')
+        with contents_html.open('r') as fd:
+            contents = fd.read()
+        assert 'SampleAppCatalog_docstring' in contents
