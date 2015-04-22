@@ -29,10 +29,34 @@
     :license: GPL v3+, see LICENSE for details.
 """
 import sphinx
+from grokcore.catalog import IndexesClass
+from sphinx.ext.autodoc import ClassDocumenter, ModuleDocumenter
+
+
+def is_indexes_object(obj):
+    """Tell, whether `obj` is derived from `grok.Indexes`.
+
+    `grok.Indexes` is not a class but an instance of
+    `grokcore.catalog.IndexesClass`.
+    """
+    return isinstance(obj, IndexesClass)
+
+
+def autodoc_skip_member(app, what, name, obj, skip, options):
+    """Do not skip `grok.Indexes` classes.
+
+    These are normally skipped due to their strange structure (they
+    are Instances one can use a class base;
+    """
+    if is_indexes_object(obj):
+        return False
+    return skip
 
 
 def setup(app):
+    app.connect('autodoc-skip-member', autodoc_skip_member)
     return {
         'version': sphinx.__display_version__,
         'parallel_read_safe': True
         }
+
