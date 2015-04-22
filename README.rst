@@ -7,12 +7,12 @@ This project is in early state and yet not usable!
 
 Are you tired of all the warnings and problems output if you process
 your Zope3_/Grok_ project with Sphinx_? `waeup.sphinx.autodoc`
-provides special documenters and other components to greatly improve
-the autodoc experience.
+provides special documenters that cope better with special Zope3_ data
+structures than stock Sphinx_.
 
 Improvements of this autodocumenter:
 
-- `grok.Indexes` decalarations are not skipped any more.
+- `grok.Indexes` declarations are not skipped any more.
 
 .. contents::
 
@@ -33,8 +33,8 @@ will be sufficient to add `waeup.sphinx.autodoc` in the
 Usage
 =====
 
-Once installed, you activate the package in the ``conf.py`` of your
-local Sphinx_ sources::
+Once installed, you can activate the package in the ``conf.py`` of
+your local Sphinx_ sources::
 
   # conf.py
   #
@@ -53,10 +53,14 @@ local Sphinx_ sources::
   #
 
 Please note, that you also have to activate `sphinx.ext.autodoc`,
-which comes with stock Sphinx_.
+which comes with Sphinx_ automatically.
+
 
 Developer Install
 =================
+
+For people that want to hack the `waeup.sphinx.autodoc` package
+itself.
 
 Developers can fork a clone from github::
 
