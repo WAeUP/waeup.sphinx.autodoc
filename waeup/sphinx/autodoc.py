@@ -28,9 +28,13 @@
     :copyright: Copyright 2015 by Uli Fouquet, WAeUP Germany.
     :license: GPL v3+, see LICENSE for details.
 """
+import pkg_resources
 import sphinx
 from grokcore.catalog import IndexesClass
 from sphinx.ext.autodoc import ClassDocumenter, ModuleDocumenter
+
+
+__version__ = pkg_resources.get_distribution('waeup.sphinx.autodoc').version
 
 
 def is_indexes_object(obj):
@@ -56,7 +60,6 @@ def autodoc_skip_member(app, what, name, obj, skip, options):
 def setup(app):
     app.connect('autodoc-skip-member', autodoc_skip_member)
     return {
-        'version': sphinx.__display_version__,
+        'version': __version__,
         'parallel_read_safe': True
         }
-
