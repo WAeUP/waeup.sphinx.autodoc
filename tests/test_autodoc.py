@@ -89,4 +89,4 @@ class TestAutodoc(object):
         contents_html = sphinx_app.out_dir.join('contents.html')
         with contents_html.open('r') as fd:
             contents = fd.read()
-        assert 'SampleAppCatalog_docstring' in contents
+        assert 'SampleAppCatalog' in contents
