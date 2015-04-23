@@ -57,6 +57,17 @@ def autodoc_skip_member(app, what, name, obj, skip, options):
     return skip
 
 
+def grokaware_getattr(*v):
+    """An attribute getter that copes with grokked objects.
+    """
+    obj, name = v[:2]
+    print("GETATTR %s" % str(v))
+    try:
+        return getattr(obj, name)
+    except AttributeError:
+        raise
+
+
 class GrokIndexesDocumenter(ClassDocumenter):
     """
     Specialized Documenter subclass for grok.Indexes instances.
@@ -89,6 +100,7 @@ class GrokIndexesDocumenter(ClassDocumenter):
 
 
 def setup(app):
+    app.add_autodoc_attrgetter(IndexesClass, grokaware_getattr)
     app.connect('autodoc-skip-member', autodoc_skip_member)
     app.add_autodocumenter(GrokIndexesDocumenter)
     return {
