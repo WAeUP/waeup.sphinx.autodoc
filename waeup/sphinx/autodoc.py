@@ -31,7 +31,6 @@
 import pkg_resources
 from grokcore.catalog import IndexesClass
 from sphinx.ext.autodoc import ClassDocumenter, ModuleLevelDocumenter
-from sphinx.util.docstrings import prepare_docstring
 
 
 __version__ = pkg_resources.get_distribution('waeup.sphinx.autodoc').version
