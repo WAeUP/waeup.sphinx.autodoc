@@ -30,7 +30,8 @@
 """
 import pkg_resources
 from grokcore.catalog import IndexesClass
-from sphinx.ext.autodoc import ClassDocumenter
+from sphinx.ext.autodoc import ClassDocumenter, ModuleLevelDocumenter
+from sphinx.util.docstrings import prepare_docstring
 
 
 __version__ = pkg_resources.get_distribution('waeup.sphinx.autodoc').version
@@ -76,6 +77,15 @@ class GrokIndexesDocumenter(ClassDocumenter):
         XXX: The base class check is not valid for grok.Indexes.
         """
         return True
+
+    def add_content(self, more_content, no_docstring=False):
+        """Add content.
+
+        This override excludes some base class functionality which
+        prevented doc strings to be displayed.
+        """
+        ModuleLevelDocumenter.add_content(self, more_content)
+        return
 
 
 def setup(app):
