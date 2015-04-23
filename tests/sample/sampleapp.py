@@ -43,3 +43,11 @@ class SampleAppCatalog(grok.Indexes):
     grok.site(ISampleApp)
     grok.name('sample app catalog')
     grok.context(ISampleAppItem)
+
+
+# This is the only way (I guess) to attach a docstring to `grok.Indexes`.
+# Regular docstrings are not recognized as such, as `grok.Indexes` is an
+# instance of `grok.IndexesClass`, not a real class.
+SampleAppCatalog.__doc__ = """
+    A catalog of SampleApps installed: SampleAppCatalog_docstring
+    """
