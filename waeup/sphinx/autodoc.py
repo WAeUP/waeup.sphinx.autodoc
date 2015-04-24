@@ -34,6 +34,7 @@ try:
 except ImportError:
     from grok.components import IndexesClass     # grok <  1.9
 from sphinx.ext.autodoc import ClassDocumenter, ModuleLevelDocumenter
+from sphinx.util.inspect import safe_getattr
 
 
 __version__ = pkg_resources.get_distribution('waeup.sphinx.autodoc').version
@@ -59,15 +60,11 @@ def autodoc_skip_member(app, what, name, obj, skip, options):
     return skip
 
 
-def grokaware_getattr(*v):
+def grokaware_getattr(obj, name, *defaults):
     """An attribute getter that copes with grokked objects.
     """
-    obj, name = v[:2]
-    print("GETATTR %s" % str(v))
-    try:
-        return getattr(obj, name)
-    except AttributeError:
-        raise
+    print("GETATTR %s" % str((obj, name, defaults)))
+    return safe_getattr(obj, name, *defaults)
 
 
 class GrokIndexesDocumenter(ClassDocumenter):
