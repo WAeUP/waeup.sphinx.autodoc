@@ -29,7 +29,10 @@
     :license: GPL v3+, see LICENSE for details.
 """
 import pkg_resources
-from grokcore.catalog import IndexesClass
+try:
+    from grokcore.catalog import IndexesClass   # grok >= 1.10
+except ImportError:
+    from grok.component import IndexesClass     # grok <  1.9
 from sphinx.ext.autodoc import ClassDocumenter, ModuleLevelDocumenter
 
 
