@@ -44,10 +44,11 @@ class SphinxAppFactory(object):
         return
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def sphinx_app(request):
     tmpdir = py.path.local(tempfile.mkdtemp())
     factory = SphinxAppFactory(tmpdir)
+    factory.build()
     request.addfinalizer(factory.cleanup)
     return factory
 
@@ -79,7 +80,6 @@ class TestAutodoc(object):
 
     def test_regular_class_is_documented(self, sphinx_app):
         # regular classes are documented
-        sphinx_app.build()
         contents_html = sphinx_app.out_dir.join('contents.html')
         assert contents_html.check()
         with contents_html.open('r') as fd:
@@ -88,7 +88,6 @@ class TestAutodoc(object):
 
     def test_indexes_are_documented(self, sphinx_app):
         # grok.Indexes are documented
-        sphinx_app.build()
         contents_html = sphinx_app.out_dir.join('contents.html')
         with contents_html.open('r') as fd:
             contents = fd.read()
@@ -96,7 +95,6 @@ class TestAutodoc(object):
 
     def test_indexes_docstrings_are_shown(self, sphinx_app):
         # Docstrings of grok.Indexes are shown
-        sphinx_app.build()
         contents_html = sphinx_app.out_dir.join('contents.html')
         with contents_html.open('r') as fd:
             contents = fd.read()
