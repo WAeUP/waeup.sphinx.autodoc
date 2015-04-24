@@ -3,6 +3,7 @@ import grok
 import os
 import py.path
 import pytest
+import tempfile
 from sphinx.application import Sphinx
 from waeup.sphinx.autodoc import is_indexes_object, autodoc_skip_member
 
@@ -39,11 +40,13 @@ class SphinxAppFactory(object):
         return self.app.build(force_all=True)
 
     def cleanup(self):
+        self.work_dir.remove(rec=1)
         return
 
 
-@pytest.fixture(scope="function")
-def sphinx_app(request, tmpdir):
+@pytest.fixture(scope="module")
+def sphinx_app(request):
+    tmpdir = py.path.local(tempfile.mkdtemp())
     factory = SphinxAppFactory(tmpdir)
     request.addfinalizer(factory.cleanup)
     return factory
