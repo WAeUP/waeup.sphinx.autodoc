@@ -32,7 +32,7 @@ import pkg_resources
 try:
     from grokcore.catalog import IndexesClass   # grok >= 1.10
 except ImportError:
-    from grok.component import IndexesClass     # grok <  1.9
+    from grok.components import IndexesClass     # grok <  1.9
 from sphinx.ext.autodoc import ClassDocumenter, ModuleLevelDocumenter
 
 
