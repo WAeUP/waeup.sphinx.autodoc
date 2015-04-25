@@ -79,13 +79,13 @@ class TestAutodoc(object):
         assert autodoc_skip_member(
             None, 'mod', 'MyName', SampleCatalogClass, False, {}) is False
 
-    def test_regular_class_is_documented(self, sphinx_app):
-        # regular classes are documented
-        contents_html = sphinx_app.out_dir.join('contents.html')
-        assert contents_html.check()
-        with contents_html.open('r') as fd:
-            contents = fd.read()
-        assert 'SampleApp_docstring' in contents
+    @with_app(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
+              copy_srcdir_to_tmpdir=True)
+    def test_regular_class_is_documented(self, app, status, warning):
+        app.build()
+        html = (app.outdir / 'contents.html').read_text()
+        assert 'SampleApp_docstring' in html
+
 
     @with_app(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
               copy_srcdir_to_tmpdir=True)
