@@ -5,6 +5,7 @@ import py.path
 import pytest
 import tempfile
 from sphinx.application import Sphinx
+from sphinx_testing import with_app
 from waeup.sphinx.autodoc import is_indexes_object, autodoc_skip_member
 
 
@@ -86,12 +87,12 @@ class TestAutodoc(object):
             contents = fd.read()
         assert 'SampleApp_docstring' in contents
 
-    def test_indexes_are_documented(self, sphinx_app):
-        # grok.Indexes are documented
-        contents_html = sphinx_app.out_dir.join('contents.html')
-        with contents_html.open('r') as fd:
-            contents = fd.read()
-        assert 'SampleAppCatalog' in contents
+    @with_app(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
+              copy_srcdir_to_tmpdir=True)
+    def test_indexes_are_documented(self, app, status, warning):
+        app.build()
+        html = (app.outdir / 'contents.html').read_text()
+        assert 'SampleAppCatalog' in html
 
     def test_indexes_docstrings_are_shown(self, sphinx_app):
         # Docstrings of grok.Indexes are shown
@@ -99,3 +100,4 @@ class TestAutodoc(object):
         with contents_html.open('r') as fd:
             contents = fd.read()
         assert 'SampleAppCatalog_docstring' in contents
+
