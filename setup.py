@@ -37,6 +37,7 @@ tests_require = [
     'grok',
     'zope.schema',
     'zope.interface',
+    'sphinx-testing',
     ]
 
 docs_require = [
