@@ -86,7 +86,6 @@ class TestAutodoc(object):
         html = (app.outdir / 'contents.html').read_text()
         assert 'SampleApp_docstring' in html
 
-
     @with_app(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
               copy_srcdir_to_tmpdir=True)
     def test_indexes_are_documented(self, app, status, warning):
@@ -94,10 +93,10 @@ class TestAutodoc(object):
         html = (app.outdir / 'contents.html').read_text()
         assert 'SampleAppCatalog' in html
 
-    def test_indexes_docstrings_are_shown(self, sphinx_app):
-        # Docstrings of grok.Indexes are shown
-        contents_html = sphinx_app.out_dir.join('contents.html')
-        with contents_html.open('r') as fd:
-            contents = fd.read()
-        assert 'SampleAppCatalog_docstring' in contents
+    @with_app(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
+              copy_srcdir_to_tmpdir=True)
+    def test_indexes_docstrings_are_shown(self, app, status, warning):
+        app.build()
+        html = (app.outdir / 'contents.html').read_text()
+        assert 'SampleAppCatalog_docstring' in html
 
