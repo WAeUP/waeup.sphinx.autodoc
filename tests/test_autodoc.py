@@ -99,4 +99,3 @@ class TestAutodoc(object):
         app.build()
         html = (app.outdir / 'contents.html').read_text()
         assert 'SampleAppCatalog_docstring' in html
-
