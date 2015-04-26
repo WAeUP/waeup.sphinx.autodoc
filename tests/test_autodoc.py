@@ -56,6 +56,13 @@ def sphinx_app(request):
 
 @pytest.fixture(scope="session")
 def static_sphinx(request):
+    """A fixture that provides a static sphinx build.
+
+    'static' means: the HTML docs are built once and results can be
+    retrieved during test session.
+
+    After test session all generated stuff (files etc.) is removed.
+    """
     exc = None
     app = TestApp(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
                   copy_srcdir_to_tmpdir=True)
