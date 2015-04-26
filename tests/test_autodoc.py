@@ -4,8 +4,9 @@ import os
 import py.path
 import pytest
 import tempfile
+from six import StringIO
 from sphinx.application import Sphinx
-from sphinx_testing import with_app
+from sphinx_testing import with_app, TestApp
 from waeup.sphinx.autodoc import is_indexes_object, autodoc_skip_member
 
 
@@ -53,6 +54,22 @@ def sphinx_app(request):
     request.addfinalizer(factory.cleanup)
     return factory
 
+@pytest.fixture(scope="session")
+def static_sphinx(request):
+    exc = None
+    app = TestApp(buildername='html',srcdir=SAMPLE_SPHINX_SRC,
+                  copy_srcdir_to_tmpdir=True)
+    try:
+        app.build()
+    except Exception as _exc:
+        exc = _exc
+    if app:
+        if exc:
+            request.addfinalizer(app.cleanup, error=exc)
+        else:
+            request.addfinalizer(app.cleanup)
+    return app
+
 
 class SampleCatalogClass(grok.Indexes):
     pass
@@ -98,4 +115,8 @@ class TestAutodoc(object):
     def test_indexes_docstrings_are_shown(self, app, status, warning):
         app.build()
         html = (app.outdir / 'contents.html').read_text()
+        assert 'SampleAppCatalog_docstring' in html
+
+    def test_foo(self, static_sphinx):
+        html = (static_sphinx.outdir / 'contents.html').read_text()
         assert 'SampleAppCatalog_docstring' in html
