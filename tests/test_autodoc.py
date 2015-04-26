@@ -54,10 +54,11 @@ def sphinx_app(request):
     request.addfinalizer(factory.cleanup)
     return factory
 
+
 @pytest.fixture(scope="session")
 def static_sphinx(request):
     exc = None
-    app = TestApp(buildername='html',srcdir=SAMPLE_SPHINX_SRC,
+    app = TestApp(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
                   copy_srcdir_to_tmpdir=True)
     try:
         app.build()
