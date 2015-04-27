@@ -63,7 +63,6 @@ def autodoc_skip_member(app, what, name, obj, skip, options):
 def grokaware_getattr(obj, name, *defaults):
     """An attribute getter that copes with grokked objects.
     """
-    print("GETATTR %s" % str((obj, name, defaults)))
     return safe_getattr(obj, name, *defaults)
 
 
