@@ -117,6 +117,6 @@ class TestAutodoc(object):
         html = (app.outdir / 'contents.html').read_text()
         assert 'SampleAppCatalog' in html
 
-    def test_indexes_docstrins_are_shown(self, static_sphinx):
+    def test_indexes_docstrings_are_shown(self, static_sphinx):
         html = (static_sphinx.outdir / 'contents.html').read_text()
         assert 'SampleAppCatalog_docstring' in html
