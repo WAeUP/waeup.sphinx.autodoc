@@ -4,6 +4,7 @@ import os
 import py.path
 import pytest
 import tempfile
+from six import StringIO
 from sphinx.application import Sphinx
 from sphinx_testing import with_app, TestApp
 from waeup.sphinx.autodoc import is_indexes_object, autodoc_skip_member
@@ -64,8 +65,11 @@ def static_sphinx(request):
     After test session all generated stuff (files etc.) is removed.
     """
     exc = None
+    status = StringIO()
+    warning = StringIO()
     app = TestApp(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
-                  copy_srcdir_to_tmpdir=True)
+                  copy_srcdir_to_tmpdir=True, status=status,
+                  warning=warning)
     try:
         app.build()
     except Exception as _exc:
@@ -75,6 +79,8 @@ def static_sphinx(request):
             request.addfinalizer(app.cleanup, error=exc)
         else:
             request.addfinalizer(app.cleanup)
+    app.status = status
+    app.warning = warning
     return app
 
 
