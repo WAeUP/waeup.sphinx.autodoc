@@ -117,13 +117,6 @@ class TestAutodoc(object):
         html = (app.outdir / 'contents.html').read_text()
         assert 'SampleAppCatalog' in html
 
-    @with_app(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
-              copy_srcdir_to_tmpdir=True)
-    def test_indexes_docstrings_are_shown(self, app, status, warning):
-        app.build()
-        html = (app.outdir / 'contents.html').read_text()
-        assert 'SampleAppCatalog_docstring' in html
-
-    def test_foo(self, static_sphinx):
+    def test_indexes_docstrins_are_shown(self, static_sphinx):
         html = (static_sphinx.outdir / 'contents.html').read_text()
         assert 'SampleAppCatalog_docstring' in html
