@@ -103,18 +103,12 @@ class TestAutodoc(object):
         assert autodoc_skip_member(
             None, 'mod', 'MyName', SampleCatalogClass, False, {}) is False
 
-    @with_app(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
-              copy_srcdir_to_tmpdir=True)
-    def test_regular_class_is_documented(self, app, status, warning):
-        app.build()
-        html = (app.outdir / 'contents.html').read_text()
+    def test_regular_class_is_documented(self, static_sphinx):
+        html = (static_sphinx.outdir / 'contents.html').read_text()
         assert 'SampleApp_docstring' in html
 
-    @with_app(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
-              copy_srcdir_to_tmpdir=True)
-    def test_indexes_are_documented(self, app, status, warning):
-        app.build()
-        html = (app.outdir / 'contents.html').read_text()
+    def test_indexes_are_documented(self, static_sphinx):
+        html = (static_sphinx.outdir / 'contents.html').read_text()
         assert 'SampleAppCatalog' in html
 
     def test_indexes_docstrings_are_shown(self, static_sphinx):
