@@ -71,14 +71,17 @@ class TestAutodoc(object):
         assert "build succeeded." in static_sphinx.status.getvalue()
 
     def test_regular_class_is_documented(self, static_sphinx):
+        # regular classes are documented
         html = (static_sphinx.outdir / 'contents.html').read_text()
         assert 'SampleApp_docstring' in html
 
     def test_indexes_are_documented(self, static_sphinx):
+        # grok.Indexes are documents
         html = (static_sphinx.outdir / 'contents.html').read_text()
         assert 'SampleAppCatalog' in html
 
     def test_indexes_docstrings_are_shown(self, static_sphinx):
+        # grok.Indexes' docstrings are processed.
         html = (static_sphinx.outdir / 'contents.html').read_text()
         assert 'SampleAppCatalog_docstring' in html
 
