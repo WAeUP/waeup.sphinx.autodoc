@@ -79,3 +79,8 @@ class TestAutodoc(object):
     def test_indexes_docstrings_are_shown(self, static_sphinx):
         html = (static_sphinx.outdir / 'contents.html').read_text()
         assert 'SampleAppCatalog_docstring' in html
+
+    def test_indexes_get_processed(self, static_sphinx):
+        # status output documents that catalogs are processed
+        assert "[autodoc] getattr(_, u'SampleAppCatalog')" in (
+            static_sphinx.status.getvalue())
