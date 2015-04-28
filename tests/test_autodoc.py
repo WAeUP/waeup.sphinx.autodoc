@@ -66,6 +66,10 @@ class TestAutodoc(object):
         assert autodoc_skip_member(
             None, 'mod', 'MyName', SampleCatalogClass, False, {}) is False
 
+    def test_build_succeeded(self, static_sphinx):
+        # we get a message that build succeeded
+        assert "build succeeded." in static_sphinx.status.getvalue()
+
     def test_regular_class_is_documented(self, static_sphinx):
         html = (static_sphinx.outdir / 'contents.html').read_text()
         assert 'SampleApp_docstring' in html
