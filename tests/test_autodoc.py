@@ -3,10 +3,8 @@ import grok
 import os
 import py.path
 import pytest
-import tempfile
 from six import StringIO
-from sphinx.application import Sphinx
-from sphinx_testing import with_app, TestApp
+from sphinx_testing import TestApp
 from waeup.sphinx.autodoc import is_indexes_object, autodoc_skip_member
 
 
