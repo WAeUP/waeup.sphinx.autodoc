@@ -28,7 +28,7 @@ def static_sphinx(request):
     warning = StringIO()
     app = TestApp(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
                   copy_srcdir_to_tmpdir=True, status=status,
-                  warning=warning)
+                  warning=warning, verbosity=2)
     try:
         app.build()
     except Exception as _exc:
