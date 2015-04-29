@@ -33,7 +33,8 @@ try:
     from grokcore.catalog import IndexesClass   # grok >= 1.10
 except ImportError:
     from grok.components import IndexesClass     # grok <  1.9
-from sphinx.ext.autodoc import ClassDocumenter, ModuleLevelDocumenter
+from sphinx.domains.python import PyClasslike
+from sphinx.ext.autodoc import ModuleLevelDocumenter, ClassDocumenter
 from sphinx.util.inspect import safe_getattr
 
 
@@ -64,6 +65,11 @@ def grokaware_getattr(obj, name, *defaults):
     """An attribute getter that copes with grokked objects.
     """
     return safe_getattr(obj, name, *defaults)
+
+
+class GrokIndexesDesc(PyClasslike):
+    def get_signature_prefix(self, sig):
+        return 'class'
 
 
 class GrokIndexesDocumenter(ClassDocumenter):
@@ -100,6 +106,7 @@ class GrokIndexesDocumenter(ClassDocumenter):
 def setup(app):
     app.add_autodoc_attrgetter(IndexesClass, grokaware_getattr)
     app.connect('autodoc-skip-member', autodoc_skip_member)
+    app.add_directive_to_domain('py', 'grokindexes', GrokIndexesDesc)
     app.add_autodocumenter(GrokIndexesDocumenter)
     return {
         'version': __version__,
