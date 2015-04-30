@@ -89,3 +89,11 @@ class TestAutodoc(object):
         # status output documents that catalogs are processed
         assert "[autodoc] getattr(_, u'SampleAppCatalog')" in (
             static_sphinx.status.getvalue())
+
+
+class TestGrokIndexesDirective(object):
+
+    def test_sig_prefix(self, static_sphinx):
+        # grokindexes directive gets ``class`` as prefix
+        html = (static_sphinx.outdir / 'contents.html').read_text()
+        assert "SomeCatalog" in html
