@@ -69,7 +69,7 @@ def grokaware_getattr(obj, name, *defaults):
 
 class GrokIndexesDesc(PyClasslike):
     def get_signature_prefix(self, sig):
-        return 'class'
+        return 'class '
 
 
 class GrokIndexesDocumenter(ClassDocumenter):
