@@ -8,6 +8,12 @@ Sample Auto Module Docs
    :members:
 
 
+Explicitly requested auto content
+---------------------------------
+
+.. autgrokindexes:: sampleapp.SampleAppCatalog
+
+
 Manually added content (no auto-stuff)
 --------------------------------------
 
