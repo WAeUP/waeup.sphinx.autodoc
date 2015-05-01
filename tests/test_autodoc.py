@@ -97,3 +97,10 @@ class TestGrokIndexesDirective(object):
         # grokindexes directive gets ``class`` as prefix
         html = (static_sphinx.outdir / 'contents.html').read_text()
         assert "SomeCatalog" in html
+
+    def test_autogrokindexes_works(self, static_sphinx):
+        # the autogrokindexes directive is processed
+        html = (static_sphinx.outdir / 'contents.html').read_text()
+        snippet = html.split('Explicitly requested auto content')[1]
+        snippet = snippet.split('Manually added content')[0]
+        assert 'SampleAppCatalog' in snippet
