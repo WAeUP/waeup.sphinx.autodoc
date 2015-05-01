@@ -72,6 +72,14 @@ in your code with the new ``''grokindexes''`` directive::
 
         Description of MyCatalog
 
+Autoscanning `grok.Indexes` instances is also possible. For that you
+can use::
+
+   .. autogrokindexes:: mymod.MyCatalog
+
+Of course, in this case `mymod.MyCatalog` must be importable during
+Sphinx_ run.
+
 
 Developer Install
 =================
