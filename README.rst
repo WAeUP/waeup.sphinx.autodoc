@@ -55,6 +55,13 @@ your local Sphinx_ sources::
 Please note, that you also have to activate `sphinx.ext.autodoc`,
 which comes with Sphinx_ automatically.
 
+`waeup.sphinx.autodoc` provides addtional directives:
+
+``grokindexes``
+---------------
+
+This directive renders a `grok.Indexes` instance.
+
 
 Developer Install
 =================
