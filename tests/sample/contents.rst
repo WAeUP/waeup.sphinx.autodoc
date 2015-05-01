@@ -11,7 +11,7 @@ Sample Auto Module Docs
 Explicitly requested auto content
 ---------------------------------
 
-.. autgrokindexes:: sampleapp.SampleAppCatalog
+.. autogrokindexes:: sampleapp.SampleAppCatalog
 
 
 Manually added content (no auto-stuff)
