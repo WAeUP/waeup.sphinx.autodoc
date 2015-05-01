@@ -60,7 +60,17 @@ which comes with Sphinx_ automatically.
 ``grokindexes``
 ---------------
 
-This directive renders a `grok.Indexes` instance.
+This directive renders a `grok.Indexes` instance. As `grok.Indexes` is
+normally an instance of some class and not a class, also any
+`grok.Indexes` 'class' will not be recognized as class by stock
+Sphinx_.
+
+With `waeup.sphinx.autodoc` you can describe a `grok.Indexes` instance
+in your code with the new ``''grokindexes''`` directive::
+
+   .. grokindexes:: mymod.MyCatalog
+
+        Description of MyCatalog
 
 
 Developer Install
