@@ -66,14 +66,14 @@ normally an instance of some class and not a class, also any
 Sphinx_.
 
 With `waeup.sphinx.autodoc` you can describe a `grok.Indexes` instance
-in your code with the new ``''grokindexes''`` directive::
+in your code with the new `grokindexes` directive::
 
    .. grokindexes:: mymod.MyCatalog
 
         Description of MyCatalog
 
 Autoscanning `grok.Indexes` instances is also possible. For that you
-can use::
+can use the `autogrokindexes`::
 
    .. autogrokindexes:: mymod.MyCatalog
 
