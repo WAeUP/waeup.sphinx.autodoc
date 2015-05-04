@@ -4,7 +4,9 @@ import os
 import py.path
 import pytest
 from six import StringIO
-from sphinx_testing import TestApp
+# Import TestApp under different name: TestNAMEs are treated special
+# by py.test.
+from sphinx_testing import TestApp as SphinxTestApp
 from waeup.sphinx.autodoc import is_indexes_object, autodoc_skip_member
 
 
@@ -24,9 +26,10 @@ def static_sphinx(request):
     exc = None
     status = StringIO()
     warning = StringIO()
-    app = TestApp(buildername='html', srcdir=SAMPLE_SPHINX_SRC,
-                  copy_srcdir_to_tmpdir=True, status=status,
-                  warning=warning, verbosity=2)
+    app = SphinxTestApp(
+        buildername='html', srcdir=SAMPLE_SPHINX_SRC,
+        copy_srcdir_to_tmpdir=True, status=status, warning=warning,
+        verbosity=2)
     try:
         app.build()
     except Exception as _exc:
