@@ -102,6 +102,19 @@ class GrokIndexesDocumenter(ClassDocumenter):
         ModuleLevelDocumenter.add_content(self, more_content)
         return
 
+    def import_object(self, *args, **kw):
+        """Import the grok.Indexes instance belonging to this documenter.
+
+        This overriding method bypasses a sideeffect of the original
+        implementation: there a flag `self.doc_as_attr` is set to `True`
+        for things that provide no `__name__`. As we like attributes of
+        `grok.Indexes` be parsed, we override that side effect.
+        """
+        result = super(GrokIndexesDocumenter, self).import_object(
+            *args, **kw)
+        self.doc_as_attr = False
+        return result
+
 
 def setup(app):
     app.add_autodoc_attrgetter(IndexesClass, grokaware_getattr)
