@@ -71,7 +71,8 @@ class TestAutodoc(object):
 
     def test_build_succeeded(self, static_sphinx):
         # we get a message that build succeeded
-        assert "build succeeded." in static_sphinx.status.getvalue()
+        status = static_sphinx.status.getvalue()
+        assert "build succeeded." in status
 
     def test_regular_class_is_documented(self, static_sphinx):
         # regular classes are documented
