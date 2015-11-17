@@ -89,7 +89,7 @@ itself.
 
 Developers can fork a clone from github::
 
-  $ git clone https://github.com/ulif/waeup.sphinx.autodoc.git
+  $ git clone https://github.com/WAeUP/waeup.sphinx.autodoc.git
 
 We recommend to create and activate a virtualenv_ first::
 
