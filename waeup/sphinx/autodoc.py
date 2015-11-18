@@ -31,8 +31,8 @@
 import pkg_resources
 try:
     from grokcore.catalog import IndexesClass   # grok >= 1.10
-except ImportError:
-    from grok.components import IndexesClass     # grok <  1.9
+except ImportError:                             # pragma: no cover
+    from grok.components import IndexesClass    # grok <  1.9
 from sphinx.domains.python import PyClasslike
 from sphinx.ext.autodoc import ModuleLevelDocumenter, ClassDocumenter
 from sphinx.util.inspect import safe_getattr
