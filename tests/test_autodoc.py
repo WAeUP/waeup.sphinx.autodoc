@@ -3,6 +3,7 @@ import grok
 import os
 import py.path
 import pytest
+import shutil
 from six import StringIO
 # Import TestApp under different name: TestNAMEs are treated special
 # by py.test.
@@ -12,6 +13,19 @@ from waeup.sphinx.autodoc import is_indexes_object, autodoc_skip_member
 
 LOCAL_TEST_DIR = py.path.local(os.path.dirname(__file__) or '.')
 SAMPLE_SPHINX_SRC = LOCAL_TEST_DIR / "sample"
+
+
+@pytest.fixture(scope="function")
+def doc_dir(request, tmpdir):
+    """A fixture that provides a sample source dir.
+
+    Contains the files from local sample dir (including conf.py, etc.) but
+    is set in a temporary dir, so we can remove it any time or change the
+    file therein.
+    """
+    source = tmpdir / "source"
+    shutil.copytree(str(SAMPLE_SPHINX_SRC), str(source))
+    return source
 
 
 @pytest.fixture(scope="session")
