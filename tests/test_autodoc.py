@@ -109,6 +109,24 @@ class TestAutodoc(object):
             static_sphinx.status.getvalue())
 
 
+class TestDottedNamedMembers(object):
+    # tests for componentes helping to ignore members with dots in name
+
+    def test_have_config_var(self, static_sphinx):
+        # The config has a config var for ignoring member names with dots
+        assert hasattr(static_sphinx.config, 'ignore_dot_named_members')
+        assert static_sphinx.config.ignore_dot_named_members is True  # default
+
+    def test_set_config_var(self, doc_dir):
+        # we can set the config var in `conf.py`
+        conf_py_content = doc_dir.join("conf.py").read()
+        conf_py_content += "\nignore_dot_named_members = False\n"
+        doc_dir.join("conf.py").write(conf_py_content)
+        app = SphinxTestApp(buildername='html', srcdir=str(doc_dir))
+        assert hasattr(app.config, 'ignore_dot_named_members')
+        assert app.config.ignore_dot_named_members is False
+
+
 class TestGrokIndexesDirective(object):
 
     def test_sig_prefix(self, static_sphinx):

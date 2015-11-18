@@ -117,6 +117,7 @@ class GrokIndexesDocumenter(ClassDocumenter):
 
 
 def setup(app):
+    app.add_config_value('ignore_dot_named_members', True, 'env')
     app.add_autodoc_attrgetter(IndexesClass, grokaware_getattr)
     app.connect('autodoc-skip-member', autodoc_skip_member)
     app.add_directive_to_domain('py', 'grokindexes', GrokIndexesDesc)
