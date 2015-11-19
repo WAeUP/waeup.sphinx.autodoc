@@ -16,8 +16,8 @@ SAMPLE_SPHINX_SRC = LOCAL_TEST_DIR / "sample"
 
 
 @pytest.fixture(scope="function")
-def doc_dir(request, tmpdir):
-    """A fixture that provides a sample source dir.
+def doc_src_dir(request, tmpdir):
+    """A fixture that provides a sample source dir as found in regular `docs`.
 
     Contains the files from local sample dir (including conf.py, etc.) but
     is set in a temporary dir, so we can remove it any time or change the
@@ -117,12 +117,12 @@ class TestDottedNamedMembers(object):
         assert hasattr(static_sphinx.config, 'ignore_dot_named_members')
         assert static_sphinx.config.ignore_dot_named_members is True  # default
 
-    def test_set_config_var(self, doc_dir):
+    def test_set_config_var(self, doc_src_dir):
         # we can set the config var in `conf.py`
-        conf_py_content = doc_dir.join("conf.py").read()
+        conf_py_content = doc_src_dir.join("conf.py").read()
         conf_py_content += "\nignore_dot_named_members = False\n"
-        doc_dir.join("conf.py").write(conf_py_content)
-        app = SphinxTestApp(buildername='html', srcdir=str(doc_dir))
+        doc_src_dir.join("conf.py").write(conf_py_content)
+        app = SphinxTestApp(buildername='html', srcdir=str(doc_src_dir))
         assert hasattr(app.config, 'ignore_dot_named_members')
         assert app.config.ignore_dot_named_members is False
 
