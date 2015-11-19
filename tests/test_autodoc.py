@@ -133,6 +133,30 @@ class TestDottedNamedMembers(object):
         assert hasattr(app.config, 'ignore_dot_named_members')
         assert app.config.ignore_dot_named_members is True
 
+    def test_ignore_dot_named_members_avoids_errors(self, doc_src_dir):
+        # setting `ignore_dot_named_members` really helps
+        doc_src_dir.join("conf.py").write(
+            "\nignore_dot_named_members = True\n", mode="a")
+        status = StringIO()
+        warning = StringIO()
+        app = SphinxTestApp(
+            buildername='html', srcdir=str(doc_src_dir),
+            status=status, warning=warning, verbosity=0)
+        app.build()
+        assert "AttributeError" not in warning.getvalue()
+
+    def test_ignore_dot_named_helps_only_if_enabled(self, doc_src_dir):
+        # setting `ignore_dot_named_members` does not help if disabled.
+        doc_src_dir.join("conf.py").write(
+            "\nignore_dot_named_members = False\n", mode="a")
+        status = StringIO()
+        warning = StringIO()
+        app = SphinxTestApp(
+            buildername='html', srcdir=str(doc_src_dir),
+            status=status, warning=warning, verbosity=0)
+        app.build()
+        assert "AttributeError" in warning.getvalue()
+
 
 class TestGrokIndexesDirective(object):
 

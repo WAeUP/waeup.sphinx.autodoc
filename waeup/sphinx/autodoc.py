@@ -56,6 +56,9 @@ def autodoc_skip_member(app, what, name, obj, skip, options):
     These are normally skipped due to their strange structure (they
     are Instances one can use a class base;
     """
+    if "." in name:
+        if app.config.ignore_dot_named_members:
+            return True
     if is_indexes_object(obj):
         return False
     return skip
