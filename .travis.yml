@@ -6,7 +6,7 @@ before_install:
   # nothing to do, currently
 # command to install dependencies
 install:
-  - python setup.py dev
+  - pip install tox
 # command to run tests
 script:
-  - python setup.py test
+  - tox -e py27
