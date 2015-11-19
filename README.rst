@@ -55,7 +55,29 @@ your local Sphinx_ sources::
 Please note, that you also have to activate `sphinx.ext.autodoc`,
 which comes with Sphinx_ automatically.
 
-`waeup.sphinx.autodoc` provides addtional directives:
+`waeup.sphinx.autodoc` provides a new config var and new directives.
+
+``ignore_dot_named_members``
+----------------------------
+
+This config value can be set in the `conf.py` of your project::
+
+  # conf.py
+  # ...
+  ignore_dot_named_members = True
+  # ...
+
+Set to True by default. Avoids sphinx choking on member names with
+dots in.
+
+If set to `True`, we skip all member that have a dot in name,
+i.e. members like `grokcore.component.directive`. Member names like
+these are extensively used for instance by `grok`.
+
+For `Sphinx` this is a problem, as it assumes that dots in names
+denote member objects of a parent object. Lots of `AttributeErrors`
+are the result.
+
 
 ``grokindexes``
 ---------------
