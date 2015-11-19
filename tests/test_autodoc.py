@@ -118,13 +118,20 @@ class TestDottedNamedMembers(object):
         assert static_sphinx.config.ignore_dot_named_members is True  # default
 
     def test_set_config_var(self, doc_src_dir):
-        # we can set the config var in `conf.py`
-        conf_py_content = doc_src_dir.join("conf.py").read()
-        conf_py_content += "\nignore_dot_named_members = False\n"
-        doc_src_dir.join("conf.py").write(conf_py_content)
+        # we can set the config var in `conf.py` (to false)
+        doc_src_dir.join("conf.py").write(
+            "\nignore_dot_named_members = False\n", mode="a")
         app = SphinxTestApp(buildername='html', srcdir=str(doc_src_dir))
         assert hasattr(app.config, 'ignore_dot_named_members')
         assert app.config.ignore_dot_named_members is False
+
+    def test_set_config_var_true(self, doc_src_dir):
+        # we can set the config var in `conf.py` to true
+        doc_src_dir.join("conf.py").write(
+            "\nignore_dot_named_members = True\n", mode="a")
+        app = SphinxTestApp(buildername='html', srcdir=str(doc_src_dir))
+        assert hasattr(app.config, 'ignore_dot_named_members')
+        assert app.config.ignore_dot_named_members is True
 
 
 class TestGrokIndexesDirective(object):
