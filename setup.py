@@ -25,6 +25,7 @@ def read(fname):
 
 
 install_requires = [
+    'setuptools',
     'six >= 1.4',
     'docutils >= 0.11',
     'sphinx >= 1.3',
@@ -34,7 +35,7 @@ tests_require = [
     'pytest >= 2.0.3',
     'grok',
     'zope.schema',
-    'zope.interface',
+    'BTrees',
     'sphinx-testing',
     ]
 
