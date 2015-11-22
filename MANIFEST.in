@@ -1,0 +1,5 @@
+include tox.ini README.rst CHANGES.rst LICENSE COPYRIGHT
+recursive-include tests *.py
+recursive-include tests *.rst
+recursive-include waeup *.py
+
