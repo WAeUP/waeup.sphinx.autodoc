@@ -7,22 +7,20 @@ waeup.sphinx.autodoc
     :target: https://travis-ci.org/WAeUP/waeup.sphinx.autodoc
     :alt: Build Status
 
-`waeup.sphinx.autodoc` is a Sphinx_ extension for using Sphinx_ with
-Zope3_ and Grok_.
+`waeup.sphinx.autodoc` is a Sphinx_ extension for autodocumenting
+components/classes specific to Zope3_ and Grok_.
 
-This project is in early state.
+This project is in early state. Use with care.
 
-Are you tired of all the warnings and problems output if you process
-your Zope3_/Grok_ project with Sphinx_? `waeup.sphinx.autodoc`
-provides special documenters that cope better with special Zope3_ data
-structures than stock Sphinx_.
+Features available yet:
 
-Improvements of this autodocumenter:
+- When autodocumenting, ignore components with a dot in their
+  name. This can greatly reduce the number of `AttributeError`s you
+  get (and you cannot tackle otherwise) when using Sphinx_ with
+  Grok_ projects.
 
-- `ignore_dot_named_members` config var to skip components with a dot
-  in name, bacause Sphinx_ cannot process these (yet).
+- New ``grokindexes`` autodocumenter documents `grok.Indexes` declarations.
 
-- `grok.Indexes` declarations are not skipped any more.
 
 .. contents::
 
