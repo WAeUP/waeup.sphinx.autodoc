@@ -51,7 +51,7 @@ setup(
     description=(
         "More Zope compatible autodocumenters for Sphinx."),
     license="GPL 3.0",
-    keywords="sphinx autodoc grok zope",
+    keywords="sphinx autodoc grok zope waeup documenter",
     url="http://pypi.python.org/pypi/waeup.sphinx.autodoc",
     packages=['waeup.sphinx'],
     namespace_packages=['waeup', ],
