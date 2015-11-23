@@ -69,6 +69,7 @@ setup(
             "GNU General Public License v3 or later (GPLv3+)"),
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: Documentation",
