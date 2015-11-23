@@ -74,7 +74,6 @@ setup(
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: Documentation",
         "Topic :: Documentation :: Sphinx",
-        "Topic :: Text Processing",
         "Topic :: Utilities",
     ],
     include_package_data=True,
