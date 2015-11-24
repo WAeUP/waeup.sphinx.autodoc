@@ -15,7 +15,7 @@ This project is in early state. Use with care.
 Features available yet:
 
 - When autodocumenting, ignore components with a dot in their
-  name. This can greatly reduce the number of `AttributeError`s you
+  name. This can greatly reduce the number of `AttributeErrors` you
   get (and you cannot tackle otherwise) when using Sphinx_ with
   Grok_ projects.
 
